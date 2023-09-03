@@ -84,7 +84,26 @@ displayCurrentPlayerTurn();
 
 // Function to reset the game
 const resetGame = () => {
-    // Your code to reset the game state
+    // Function to reset the game
+    const resetGame = () => {
+        // Reset the game state
+        cells = ['', '', '', '', '', '', '', '', ''];
+        currentPlayer = 'X';
+        gameOver = false; // Set the game to not be over
+
+        // Update the 'result' element to indicate the current player's turn
+        displayCurrentPlayerTurn();
+
+        // Re-enable all buttons for a new game
+        btns.forEach((button) => {
+            button.textContent = '';
+            button.disabled = false;
+        });
+    };
+
+    // Add an event listener to the reset button
+    document.querySelector('#reset').addEventListener('click', resetGame);
+
     // ...
 
     // Your code to update the 'result' element
