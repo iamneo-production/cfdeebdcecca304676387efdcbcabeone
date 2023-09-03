@@ -130,11 +130,15 @@
                 buttons[index].value = currentPlayer;
                 buttons[index].disabled = true;
                 checkWin();
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                resultText.textContent = `Player ${currentPlayer}'s Turn`;
+                if (!gameOver) {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                    resultText.textContent = `Player ${currentPlayer}'s Turn`;
+                }
             }
         }
 
+
+        // Function to check for a win
         // Function to check for a win
         // Function to check for a win
         function checkWin() {
@@ -154,6 +158,12 @@
                 if (gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
                     resultText.textContent = `Player ${gameBoard[a]} Wins!`;
                     gameOver = true;
+
+                    // Disable buttons to prevent further moves
+                    buttons.forEach((button) => {
+                        button.disabled = true;
+                    });
+
                     break;
                 }
             }
@@ -163,6 +173,7 @@
                 gameOver = true;
             }
         }
+
 
 
         // Event listeners for button clicks
