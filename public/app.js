@@ -13,6 +13,7 @@ let conditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
+let gameOver = false;
 
 // Function to handle player moves
 const ticTacToe = (element, index) => {
@@ -44,7 +45,7 @@ function checkWin() {
         }
     }
 
-    if (!cells.includes('')) {
+    if (cells.includes('')) {
         result.textContent = "It's a draw!";
         result.style.color = 'orange';
         gameOver = true; // Set the game to be over
@@ -72,49 +73,27 @@ function togglePlayer() {
 // Initialize the game
 displayCurrentPlayerTurn();
 
-
-/*
-**Part 2: Reset Function (Add your code here)**
-
-1. Implement a new function that resets the game to its initial state.
-2. Ensure the 'cells', 'btns', and 'currentPlayer' variables are reset.
-3. Update the 'result' element to indicate the current player's turn.
-4. Re-enable all buttons for a new game.
-*/
-
 // Function to reset the game
 const resetGame = () => {
-    // Function to reset the game
-    const resetGame = () => {
-        // Reset the game state
-        cells = ['', '', '', '', '', '', '', '', ''];
-        currentPlayer = 'X';
-        gameOver = false; // Set the game to not be over
+    // Reset the game state
+    cells = ['', '', '', '', '', '', '', '', ''];
+    currentPlayer = 'X';
+    gameOver = false; // Set the game to not be over
 
-        // Update the 'result' element to indicate the current player's turn
-        displayCurrentPlayerTurn();
+    // Update the 'result' element to indicate the current player's turn
+    displayCurrentPlayerTurn();
 
-        // Re-enable all buttons for a new game
-        btns.forEach((button) => {
-            button.textContent = '';
-            button.disabled = false;
-        });
-    };
-
-    // Add an event listener to the reset button
-    document.querySelector('#reset').addEventListener('click', resetGame);
-
-    // ...
-
-    // Your code to update the 'result' element
-    // ...
-
-    // Your code to re-enable buttons
-    // ...
+    // Re-enable all buttons for a new game
+    btns.forEach((button) => {
+        button.textContent = '';
+        button.disabled = false;
+    });
 };
 
+// Add an event listener to the reset button
+document.querySelector('#reset').addEventListener('click', resetGame);
+
+// Add event listeners to the buttons
 btns.forEach((btn, i) => {
     btn.addEventListener('click', () => ticTacToe(btn, i));
 });
-
-document.querySelector('#reset').addEventListener('click', resetGame);
