@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +8,187 @@
   <title>tic_tac_toe</title>
 
   <!-- link the style.css and app.js files -->
+  <style>
+    /* CSS Styles */
+    body {
+      text-align: center;
+    }
+
+    h1 {
+      color: white;
+      text-shadow: 2px 2px 4px #444;
+      font-size: 50px;
+    }
+
+    .box {
+      display: flex;
+      flex-direction: column;
+      margin: 35px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn {
+      width: 75px;
+      height: 75px;
+      margin: 5px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      font-size: 50px;
+      font-weight: 500;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #333;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .btn:disabled {
+      color: black;
+      cursor: no-drop;
+    }
+
+    .result-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 2px solid #333;
+      max-width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    .result-text {
+      color: white;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      font-size: 25px;
+    }
+
+    .reset {
+      text-align: center;
+    }
+
+    #resetBtn {
+      border: 2px solid black;
+      color: black;
+      background-color: white;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #resetBtn:hover {
+      background-color: black;
+      color: white;
+    }
+  </style>
 
 </head>
+
 <body>
   <!-- Enter your code here -->
+  <h1>Tic Tac Toe</h1>
+
+  <div class="box">
+    <div class="row">
+      <input type="button" class="btn" readonly>
+      <input type="button" class="btn" readonly>
+      <input type="button" class="btn" readonly>
+    </div>
+    <div class="row">
+      <input type="button" class="btn" readonly>
+      <input type="button" class="btn" readonly>
+      <input type="button" class="btn" readonly>
+    </div>
+    <div class="row">
+      <input type="button" class="btn" readonly>
+      <input type="button" class="btn" readonly>
+      <input type="button" class="btn" readonly>
+    </div>
+  </div>
+
+  <div class="result-container">
+    <p class="result-text">Player X's Turn</p>
+  </div>
+
+  <div class="reset">
+    <button id="resetBtn">Reset</button>
+  </div>
+
+  <script>
+    // JavaScript Code
+    const buttons = document.querySelectorAll('.btn');
+    const resultText = document.querySelector('.result-text');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentPlayer = 'X';
+    let gameBoard = ['', '', '', '', '', '', '', '', ''];
+    let gameOver = false;
+
+    // Function to handle a player's move
+    function handleMove(index) {
+      if (!gameOver && gameBoard[index] === '') {
+        gameBoard[index] = currentPlayer;
+        buttons[index].value = currentPlayer;
+        buttons[index].disabled = true;
+        checkWin();
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        resultText.textContent = `Player ${currentPlayer}'s Turn`;
+      }
+    }
+
+    // Function to check for a win
+    // Function to check for a win
+    function checkWin() {
+      const winningCombos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
+
+      for (const combo of winningCombos) {
+        const [a, b, c] = combo;
+        if (gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+          resultText.textContent = `Player ${gameBoard[a]} Wins!`;
+          gameOver = true;
+          break;
+        }
+      }
+
+      if (!gameOver && !gameBoard.includes('')) {
+        resultText.textContent = "It's a Draw!";
+        gameOver = true;
+      }
+    }
+
+
+    // Event listeners for button clicks
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        handleMove(index);
+      });
+    });
+
+    // Reset button functionality
+    resetBtn.addEventListener('click', () => {
+      buttons.forEach((button, index) => {
+        button.value = '';
+        button.disabled = false;
+        gameBoard[index] = '';
+      });
+      resultText.textContent = "Player X's Turn";
+      currentPlayer = 'X';
+      gameOver = false;
+    });
+  </script>
 </body>
+
 </html>
