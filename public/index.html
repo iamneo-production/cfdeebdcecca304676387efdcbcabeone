@@ -138,7 +138,7 @@
         checkWin();
         if (!gameOver) {
           currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-          resultText.textContent = `Player ${currentPlayer}'s Turn`;
+          resultText.textContent = `Player ${currentPlayer} Turn`;
         }
       }
     }
@@ -159,7 +159,7 @@
       for (const combo of winningCombos) {
         const [a, b, c] = combo;
         if (gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
-          resultText.textContent = `Player ${gameBoard[a]} Wins!`;
+          resultText.textContent = `Player ${gameBoard[a]} Won`;
           gameOver = true;
 
           // Disable buttons to prevent further moves
@@ -193,7 +193,7 @@
         button.disabled = false;
         gameBoard[index] = '';
       });
-      resultText.textContent = "Player X's Turn";
+      resultText.textContent = "Player X Turn";
       currentPlayer = 'X';
       gameOver = false;
     });
